@@ -93,8 +93,8 @@ jobs:
 
         ./scripts/feeds update -a
 
-        # rm -rf feeds/packages/lang/golang
-        # git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+        rm -rf feeds/packages/lang/golang
+        git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
         sed -i -e 's/PKG_VERSION:=1.9.5/PKG_VERSION:=1.9.4/' -e 's/PKG_MIRROR_HASH:=a9d53209c5e31503cdc61518ca5887bb01cf1dab546928272a9aa7051713e4be/PKG_MIRROR_HASH:=0521b15bb15ad46704ccf65f7ae683a47d54e7bae57fbe4e2a4341da6d424e58/' feeds/packages/utils/irqbalance/Makefile
         sed -i -e 's/PKG_VERSION:=26.2.4/PKG_VERSION:=25.1.1/' -e 's/PKG_HASH:=192200a0b60232a5fd7f63edf5dfa88ecb568f9b40049ca4676b6441f8da6eac/PKG_HASH:=619b10d24bab367a0788b3585f8d31fa4e5e060be7f72647d6ee17bd744603a5/' feeds/passwall_packages/xray-core/Makefile
