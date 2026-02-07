@@ -89,7 +89,7 @@ jobs:
     - name: Update & install feeds
       working-directory: ./openwrt
       run: |
-        sed -i '1i src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main\nsrc-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main\n' feeds.conf.default
+        sed -i '1i src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main\nsrc-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main\nsrc-git passwall2_luci https://github.com/Openwrt-Passwall/openwrt-passwall2.git;main\n' feeds.conf.default
 
         ./scripts/feeds update -a
 
@@ -112,6 +112,10 @@ jobs:
 
         # Fix Geoview Go version mismatch (downgrade to Go 1.23 + fix dependencies)
         sed -i "/define Package\/geoview\/install/i define Build/Prepare\n\t\$(call Build/Prepare/Default)\n\t\$(SED) 's/go 1.24.*/go 1.23/g' \$(PKG_BUILD_DIR)/go.mod\n\techo \"replace golang.org/x/sys => golang.org/x/sys v0.29.0\" >> \$(PKG_BUILD_DIR)/go.mod\n\tcd \$(PKG_BUILD_DIR) && \$(GO_PKG_VARS) go mod tidy\nendef\n" feeds/passwall_packages/geoview/Makefile
+
+        cd feeds/passwall_packages/xray-plugin
+        go get github.com/sagernet/sing@latest
+        go mod tidy
 
         ./scripts/feeds install -a
 
