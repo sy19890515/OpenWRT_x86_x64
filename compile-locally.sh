@@ -40,7 +40,7 @@ cd openwrt
 # sed -i '/GO_PKG:=/a GO_PKG_LDFLAGS:=-s -w -checklinkname=0' feeds/passwall_packages/xray-plugin/Makefile
 
 # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
-sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
+# sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
 
 ./scripts/feeds install -a
 
