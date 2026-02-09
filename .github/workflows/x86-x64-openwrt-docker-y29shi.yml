@@ -60,7 +60,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        ( sudo -E apt-get -qq update
+        sudo -E apt-get -qq update
         sudo -E apt-get -qq install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential xxd\
                                     bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex g++-multilib\
                                     g++ gawk gcc-multilib gettext git gnutls-dev golang gperf haveged help2man intltool jq\
@@ -75,7 +75,7 @@ jobs:
         sudo -E apt-get -qq purge azure-cli ghc* zulu* firefox powershell openjdk* dotnet* google* mysql* php* android* rename speedtest-cli
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean ) &
+        sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
 
     - name: Initialize Environment and Display System Info
@@ -93,6 +93,8 @@ jobs:
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
+        # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
+        sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
         ./scripts/feeds install -a
 
     - name: Load feeds.conf.default
