@@ -4,7 +4,6 @@ cd /home/y29shi/OpenWRT_x86_x64
 chmod +x immortalwrt/*.sh
 /home/y29shi/OpenWRT_x86_x64/immortalwrt/system-Information.sh
 
-# git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-24.10 openwrt
 git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-24.10 openwrt
 
 
