@@ -147,11 +147,11 @@ jobs:
         cd openwrt/bin/targets/x86/64
         rm -rf packages *rootfs.tar.gz *rootfs.img.gz *combined.img.gz *.bin *.config *.buildinfo *.json sha256sums *.manifest
         for file in immortalwrt-*-*.img.gz; do
-            mv "$file" "docker-$file"
+            mv "$file" "docker-$REPO_BRANCH-$file"
         done
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
-        find ../../../packages/ -type f -name '*.*pk' | zip packages.zip -@
+        find ../../../packages/ -type f -name '*.*pk' | zip $REPO_BRANCH-packages.zip -@
 
     - name: Upload the firmware to github
       uses: actions/upload-artifact@main
