@@ -4,8 +4,7 @@ cd /home/y29shi/OpenWRT_x86_x64
 chmod +x immortalwrt/*.sh
 /home/y29shi/OpenWRT_x86_x64/immortalwrt/system-Information.sh
 
-# git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-24.10 openwrt
-git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b master openwrt
+git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-25.12 openwrt
 
 
 cd openwrt
@@ -40,7 +39,7 @@ cd openwrt
 # sed -i '/GO_PKG:=/a GO_PKG_LDFLAGS:=-s -w -checklinkname=0' feeds/passwall_packages/xray-plugin/Makefile
 
 # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
-sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
+# sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
 
 ./scripts/feeds install -a
 
