@@ -93,8 +93,6 @@ jobs:
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
-        # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
-        sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
         ./scripts/feeds install -a
 
     - name: Load feeds.conf.default
