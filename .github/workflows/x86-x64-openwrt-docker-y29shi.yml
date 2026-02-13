@@ -14,7 +14,7 @@ on:
   # workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/DHDAXCW/immortalwrt
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-24.10
   CONFIG_FILE: immortalwrt/x86_64/defconfig
   DIY_P1_SH: immortalwrt/diy-part1.sh
@@ -60,7 +60,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        ( sudo -E apt-get -qq update
+        sudo -E apt-get -qq update
         sudo -E apt-get -qq install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential xxd\
                                     bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex g++-multilib\
                                     g++ gawk gcc-multilib gettext git gnutls-dev golang gperf haveged help2man intltool jq\
@@ -75,7 +75,7 @@ jobs:
         sudo -E apt-get -qq purge azure-cli ghc* zulu* firefox powershell openjdk* dotnet* google* mysql* php* android* rename speedtest-cli
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean ) &
+        sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
 
     - name: Initialize Environment and Display System Info
@@ -115,11 +115,11 @@ jobs:
         CONFIG_DOCKER_CGROUP_OPTIONS=y
         CONFIG_DOCKER_NET_MACVLAN=y
         CONFIG_DOCKER_STO_EXT4=y
+        CONFIG_PACKAGE_luci-app-netspeedtest=y
         CONFIG_PACKAGE_docker=y
         CONFIG_PACKAGE_docker-compose=y
         CONFIG_PACKAGE_dockerd=y
         CONFIG_PACKAGE_luci-app-dockerman=y
-        CONFIG_PACKAGE_luci-app-netspeedtest=y
         CONFIG_PACKAGE_luci-i18n-dockerman-zh-cn=y
         CONFIG_PACKAGE_luci-lib-docker=y
         ' >> .config
@@ -149,7 +149,7 @@ jobs:
         done
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
-        find ../../../packages/ -type f -name '*.*pk' | zip $REPO_BRANCH-packages.zip -@
+        find ../../../packages/ -type f -name '*.*pk' | zip packages-$REPO_BRANCH.zip -@
 
     - name: Upload the firmware to github
       uses: actions/upload-artifact@main
